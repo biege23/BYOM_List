@@ -1,0 +1,264 @@
+version: 2026-02-03
+lastUpdated: 2026-02-03
+sources:
+  - url: https://platform.openai.com/docs/models
+    note: OpenAI model catalog
+  - url: https://platform.openai.com/docs/deprecations
+    note: OpenAI deprecations and replacements
+  - url: https://ai.google.dev/gemini-api/docs/models/gemini
+    note: Gemini model families and naming
+  - url: https://ai.google.dev/gemini-api/docs/gemini-3
+    note: Gemini 3 preview model IDs
+  - url: https://ai.google.dev/gemini-api/docs/deprecations
+    note: Gemini model shutdown schedule
+  - url: https://platform.claude.com/docs/en/about-claude/models/overview
+    note: Claude 4.5 model IDs and aliases
+  - url: https://docs.mistral.ai/getting-started/models
+    note: Mistral model families and IDs
+  - url: https://docs.mistral.ai/models/mistral-large-3-25-12
+    note: Mistral Large 3 API model ID
+  - url: https://docs.mistral.ai/models/codestral-25-08
+    note: Codestral API model ID
+  - url: https://api-docs.deepseek.com/quick_start/pricing
+    note: DeepSeek supported models
+  - url: https://api-docs.deepseek.com/api/list-models
+    note: DeepSeek model listing endpoint
+  - url: https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure?view=foundry-classic&tabs=global-standard-aoai%2Cglobal-standard&pivots=azure-openai
+    note: Azure OpenAI model names
+
+providers:
+  - id: google-gemini
+    displayName: Google Gemini
+    providerType: google-gemini
+    defaultBaseUrl: https://generativelanguage.googleapis.com/v1beta
+    defaultModel: gemini-2.5-flash
+    allowCustomModel: true
+    visible: true
+    metadataVerified: true
+    requiresBaseUrl: false
+    authMethod: Google AI Studio API Key
+    rateLimitNotes: Quotas vary by plan; see Google AI Studio for current limits.
+    endpoints:
+      - /models/{model}:generateContent
+    sourceUrl: https://ai.google.dev/gemini-api/docs/models/gemini
+    migrationNotes: Gemini 2.0 models are deprecated and scheduled for shutdown March 31, 2026.
+    models:
+      - id: gemini-3-flash-preview
+        displayName: Gemini 3 Flash (Preview)
+      - id: gemini-3-pro-preview
+        displayName: Gemini 3 Pro (Preview)
+      - id: gemini-2.5-flash
+        displayName: Gemini 2.5 Flash (Stable)
+        recommended: true
+      - id: gemini-2.5-pro
+        displayName: Gemini 2.5 Pro (Stable)
+      - id: gemini-2.5-flash-lite
+        displayName: Gemini 2.5 Flash-Lite (Stable)
+      - id: gemini-flash-latest
+        displayName: Gemini Flash (latest alias → 3 Flash Preview)
+      - id: gemini-pro-latest
+        displayName: Gemini Pro (latest alias → 3 Pro Preview)
+
+  - id: openai
+    displayName: OpenAI
+    providerType: openai
+    defaultBaseUrl: https://api.openai.com/v1
+    defaultModel: gpt-5.2
+    allowCustomModel: true
+    visible: true
+    metadataVerified: true
+    requiresBaseUrl: false
+    authMethod: Bearer token in Authorization header
+    rateLimitNotes: Quotas vary by plan; streaming strongly recommended for long responses.
+    endpoints:
+      - /chat/completions
+    sourceUrl: https://platform.openai.com/docs/models
+    models:
+      - id: gpt-5.2
+        displayName: GPT-5.2
+        recommended: true
+      - id: gpt-5.2-pro
+        displayName: GPT-5.2 Pro
+      - id: gpt-5.2-codex
+        displayName: GPT-5.2 Codex
+      - id: gpt-5.1
+        displayName: GPT-5.1
+      - id: gpt-5.1-codex
+        displayName: GPT-5.1 Codex
+      - id: gpt-5.1-codex-mini
+        displayName: GPT-5.1 Codex Mini
+      - id: gpt-5.1-codex-max
+        displayName: GPT-5.1 Codex Max
+      - id: gpt-5
+        displayName: GPT-5
+      - id: gpt-5-pro
+        displayName: GPT-5 Pro
+      - id: gpt-5-mini
+        displayName: GPT-5 Mini
+      - id: gpt-5-nano
+        displayName: GPT-5 Nano
+      - id: gpt-4.1
+        displayName: GPT-4.1
+      - id: gpt-4.1-mini
+        displayName: GPT-4.1 Mini
+      - id: gpt-4.1-nano
+        displayName: GPT-4.1 Nano
+      - id: gpt-4o
+        displayName: GPT-4o
+      - id: gpt-4o-mini
+        displayName: GPT-4o Mini
+      - id: o3-pro
+        displayName: o3-pro (Reasoning)
+      - id: o3
+        displayName: o3 (Reasoning)
+      - id: o3-mini
+        displayName: o3-mini (Reasoning)
+      - id: o4-mini
+        displayName: o4-mini (Reasoning)
+
+  - id: anthropic
+    displayName: Anthropic Claude
+    providerType: anthropic
+    defaultBaseUrl: https://api.anthropic.com
+    defaultModel: claude-sonnet-4-5
+    allowCustomModel: true
+    visible: true
+    metadataVerified: true
+    requiresBaseUrl: false
+    authMethod: x-api-key header
+    rateLimitNotes: Enforced per-account; see Anthropic console for current limits.
+    endpoints:
+      - /v1/messages
+    sourceUrl: https://platform.claude.com/docs/en/about-claude/models/overview
+    models:
+      - id: claude-sonnet-4-5
+        displayName: Claude Sonnet 4.5
+        recommended: true
+      - id: claude-sonnet-4-5-20250929
+        displayName: Claude Sonnet 4.5 (20250929)
+      - id: claude-haiku-4-5
+        displayName: Claude Haiku 4.5
+      - id: claude-haiku-4-5-20251001
+        displayName: Claude Haiku 4.5 (20251001)
+      - id: claude-opus-4-5
+        displayName: Claude Opus 4.5
+      - id: claude-opus-4-5-20251101
+        displayName: Claude Opus 4.5 (20251101)
+
+  - id: azure-openai
+    displayName: Azure OpenAI
+    providerType: azure-openai
+    defaultBaseUrl: https://YOUR-RESOURCE-NAME.openai.azure.com
+    defaultModel: gpt-5-mini
+    allowCustomModel: true
+    visible: true
+    metadataVerified: true
+    requiresBaseUrl: true
+    authMethod: API key in api-key header
+    rateLimitNotes: Rate limits are configured per Azure resource.
+    endpoints:
+      - /openai/deployments/{deploymentId}/chat/completions?api-version=2024-05-01-preview
+    sourceUrl: https://learn.microsoft.com/en-us/azure/ai-foundry/foundry-models/concepts/models-sold-directly-by-azure?view=foundry-classic&tabs=global-standard-aoai%2Cglobal-standard&pivots=azure-openai
+    migrationNotes: Azure OpenAI requires a deployment name; model IDs here map to deployable Azure model names.
+    models:
+      - id: gpt-5.2
+        displayName: GPT-5.2
+      - id: gpt-5.2-codex
+        displayName: GPT-5.2 Codex
+      - id: gpt-5.2-chat
+        displayName: GPT-5.2 Chat (Preview)
+      - id: gpt-5.1
+        displayName: GPT-5.1
+      - id: gpt-5.1-codex
+        displayName: GPT-5.1 Codex
+      - id: gpt-5.1-codex-mini
+        displayName: GPT-5.1 Codex Mini
+      - id: gpt-5.1-codex-max
+        displayName: GPT-5.1 Codex Max
+      - id: gpt-5
+        displayName: GPT-5
+      - id: gpt-5-mini
+        displayName: GPT-5 Mini
+        recommended: true
+      - id: gpt-5-nano
+        displayName: GPT-5 Nano
+      - id: gpt-4.1
+        displayName: GPT-4.1
+      - id: gpt-4.1-mini
+        displayName: GPT-4.1 Mini
+      - id: gpt-4.1-nano
+        displayName: GPT-4.1 Nano
+      - id: gpt-4o
+        displayName: GPT-4o
+      - id: gpt-4o-mini
+        displayName: GPT-4o Mini
+      - id: o3-pro
+        displayName: o3-pro (Reasoning)
+      - id: o3
+        displayName: o3 (Reasoning)
+      - id: o3-mini
+        displayName: o3-mini (Reasoning)
+      - id: o4-mini
+        displayName: o4-mini (Reasoning)
+
+  - id: mistral
+    displayName: Mistral AI
+    providerType: mistral
+    defaultBaseUrl: https://api.mistral.ai/v1
+    defaultModel: mistral-large-2512
+    allowCustomModel: true
+    visible: true
+    metadataVerified: true
+    requiresBaseUrl: false
+    authMethod: Authorization header with Bearer key
+    rateLimitNotes: Fair-use policy; contact Mistral for enterprise SLAs.
+    endpoints:
+      - /chat/completions
+    sourceUrl: https://docs.mistral.ai/getting-started/models
+    models:
+      - id: mistral-large-2512
+        displayName: Mistral Large 3 (v25.12)
+        recommended: true
+      - id: mistral-medium-2508
+        displayName: Mistral Medium 3.1 (v25.08)
+      - id: mistral-small-2506
+        displayName: Mistral Small 3.2 (v25.06)
+      - id: codestral-2508
+        displayName: Codestral (v25.08)
+      - id: ministral-8b-2512
+        displayName: Ministral 3 8B (v25.12)
+
+  - id: deepseek
+    displayName: DeepSeek
+    providerType: custom
+    defaultBaseUrl: https://api.deepseek.com
+    defaultModel: deepseek-chat
+    allowCustomModel: true
+    visible: true
+    metadataVerified: true
+    requiresBaseUrl: true
+    authMethod: Bearer token (OpenAI compatible)
+    rateLimitNotes: Verify limits in DeepSeek console.
+    endpoints:
+      - /chat/completions
+    sourceUrl: https://api-docs.deepseek.com/quick_start/pricing
+    models:
+      - id: deepseek-chat
+        displayName: DeepSeek Chat (V3.2)
+        recommended: true
+      - id: deepseek-reasoner
+        displayName: DeepSeek Reasoner (V3.2)
+
+  - id: custom
+    displayName: Custom Provider
+    providerType: custom
+    defaultBaseUrl: null
+    allowCustomModel: true
+    visible: true
+    metadataVerified: false
+    requiresBaseUrl: true
+    authMethod: Configure manually
+    rateLimitNotes: Depends on your backend.
+    endpoints: []
+    sourceUrl: null
+    models: []
