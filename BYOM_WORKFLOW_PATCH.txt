@@ -1,0 +1,38 @@
+Generate BYOM version workflow (place under .github/workflows/generate-byom-version.yml):
+
+name: Generate BYOM version
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'BYOM_Models.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  write-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Compute version and write file
+        run: |
+          set -euo pipefail
+          sha=$(git rev-parse --short HEAD)
+          ts=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+          echo "{\"version\": \"$sha\", \"timestamp\": \"$ts\", \"source\": \"BYOM_Models.yml\"}" > byom_version.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add byom_version.json || true
+          if ! git diff --quiet --staged; then
+            git commit -m "chore: update byom_version.json [skip ci]" || true
+            git push origin HEAD:main
+          else
+            echo "byom_version.json is up-to-date"
+          fi
